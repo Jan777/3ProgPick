@@ -1,8 +1,10 @@
-package personajes;
+package personaje;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+
+import interfaces.Atacable;
 
 public abstract class Alianza {
 

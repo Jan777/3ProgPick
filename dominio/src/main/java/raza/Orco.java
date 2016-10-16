@@ -1,4 +1,6 @@
-package personajes;
+package raza;
+
+import personaje.Personaje;
 
 public class Orco extends Personaje {
 
@@ -22,5 +24,10 @@ public class Orco extends Personaje {
 	@Override
 	public int obtenerPuntosDeDefensa() {
 		return 0;
+	}
+
+	@Override
+	public int obtenerNivelDeSalud() {
+		return this.salud;
 	}
 }

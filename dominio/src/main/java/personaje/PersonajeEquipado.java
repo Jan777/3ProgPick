@@ -1,4 +1,4 @@
-package personajes;
+package personaje;
 
 public class PersonajeEquipado extends Personaje {
 
@@ -26,6 +26,11 @@ public class PersonajeEquipado extends Personaje {
 	@Override
 	public int obtenerPuntosDeDefensa() {
 		return this.personajeDecorado.obtenerPuntosDeDefensa();
+	}
+
+	@Override
+	public int obtenerNivelDeSalud() {
+		return this.personajeDecorado.obtenerNivelDeSalud();
 	}
 }
 

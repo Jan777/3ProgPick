@@ -1,4 +1,4 @@
-package personajes;
+package interfaces;
 
 public interface Atacable {
 

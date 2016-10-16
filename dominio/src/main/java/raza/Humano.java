@@ -1,5 +1,6 @@
-package personajes;
+package raza;
 
+import personaje.Personaje;
 
 public class Humano extends Personaje {
 	
@@ -10,11 +11,16 @@ public class Humano extends Personaje {
 
 	@Override
 	protected boolean puedeAtacar() {
-		return energia >= 10;
+		return this.energia >= 10;
 	}
 
 	@Override
 	public int obtenerPuntosDeDefensa() {
 		return 0;
+	}
+
+	@Override
+	public int obtenerNivelDeSalud() {
+		return this.salud;
 	}
 }
