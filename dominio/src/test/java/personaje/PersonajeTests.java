@@ -28,6 +28,8 @@ public class PersonajeTests {
 		Assert.assertEquals(100, Orco.getSalud());
 	}
 	
+	/*
+	@Test
 	public void MagoIncrementaAtaqueAlAtacar(){
 		Personaje Mago = new Mago();
 		Personaje Enemigo = new Orco();
@@ -38,8 +40,11 @@ public class PersonajeTests {
 		Assert.assertTrue(Mago.obtenerPuntosDeAtaque() > ptsAtaque);
 		
 	}
+	*/
 	
-	public void HumanoIncrementaAtaqueAlAtacarEn10(){
+	/*
+	@Test
+	public void HumanoIncrementaAtaqueAlAtacarEnDiez(){
 		Personaje Humano = new Humano();
 		Personaje Enemigo = new Mago();
 		int ptsAtaque = Humano.obtenerPuntosDeAtaque();
@@ -49,5 +54,5 @@ public class PersonajeTests {
 		Assert.assertEquals(ptsAtaque+10, Humano.obtenerPuntosDeAtaque());
 				
 	}
-	
+	*/
 }
