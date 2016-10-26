@@ -3,10 +3,13 @@ package personaje;
 import interfaces.Atacable;
 
 public abstract class Personaje implements Atacable {
-
+	
+	//para subir de nivel reviso el fibonacci correspondiente al nivel
 	protected int energia = 100;
 	protected int salud = 100;
-	protected int experiencia  = 0;	// esto es el nivel
+	protected int saludmax = 100;
+	protected int experiencia  = 0;
+	protected int nivel = 0; 
 	protected String nombre;	
 	
 	public final void atacar(Atacable atacado) {
@@ -49,5 +52,16 @@ public abstract class Personaje implements Atacable {
 
 	public int obtenerPuntosDeAtaque() {
 		return calcularPuntosDeAtaque();
+	}
+	
+	public int obtenerAtaqueSegunNivel(int nivel){
+		switch (nivel) {
+		case 1:
+			return 5;
+		case 2:
+			return 10;
+		default:
+			return 0;
+		}
 	}
 }

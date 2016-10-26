@@ -28,7 +28,7 @@ public class PersonajeTests {
 		Assert.assertEquals(100, Orco.getSalud());
 	}
 	
-	/*
+	
 	@Test
 	public void MagoIncrementaAtaqueAlAtacar(){
 		Personaje Mago = new Mago();
@@ -40,7 +40,7 @@ public class PersonajeTests {
 		Assert.assertTrue(Mago.obtenerPuntosDeAtaque() > ptsAtaque);
 		
 	}
-	*/
+	
 	
 	/*
 	@Test
