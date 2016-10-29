@@ -1,15 +1,18 @@
 package alianza;
 
-import java.util.List;
-
+import java.util.ArrayList;
 import interfaces.Atacable;
 import personaje.Personaje;
 import raza.Humano;
 
 public class AlianzaDeHumanos extends Alianza {
 
-	public AlianzaDeHumanos(List<Personaje> aliados) {
-		super(aliados);
+	public AlianzaDeHumanos(int cantidad) {
+		super(cantidad);
+		this.aliados = new ArrayList<Personaje>();
+		for (int i = 0; i < cantidad; i++) {
+			this.aliados.add(new Humano());
+		}
 	}
 
 	@Override
