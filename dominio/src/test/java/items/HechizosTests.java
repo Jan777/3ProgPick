@@ -1,11 +1,15 @@
 package items;
 
 import org.junit.Assert;
+import org.junit.Test;
+
 
 import raza.Humano;
 import raza.Mago;
 
 public class HechizosTests {
+	
+	@Test
 	public void MagoUtilizaEspectroPatronumReduceVidaAlaMitad(){
 		Mago Harry = new Mago();
 		Humano Enemigo = new Humano();
