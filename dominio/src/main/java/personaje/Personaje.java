@@ -6,10 +6,11 @@ public abstract class Personaje implements Atacable {
 	
 	//para subir de nivel reviso el fibonacci correspondiente al nivel
 	protected int energia = 100;
-	protected int salud = 100;
+	public int salud = 100;
 	protected int saludmax = 100;
 	protected int experiencia  = 0;
-	protected int nivel = 0; 
+	protected int nivel = 0;
+	public int altura = 0;
 	protected String nombre;	
 	
 	public final void atacar(Atacable atacado) {
@@ -18,6 +19,10 @@ public abstract class Personaje implements Atacable {
 			energia -= calcularPuntosDeAtaque();
 			despuesDeAtacar();
 		}
+	}
+	
+	protected void SubirNivel(){
+		
 	}
 
 	protected void despuesDeAtacar() { 

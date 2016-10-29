@@ -41,8 +41,6 @@ public class PersonajeTests {
 		
 	}
 	
-	
-	/*
 	@Test
 	public void HumanoIncrementaAtaqueAlAtacarEnDiez(){
 		Personaje Humano = new Humano();
@@ -54,5 +52,16 @@ public class PersonajeTests {
 		Assert.assertEquals(ptsAtaque+10, Humano.obtenerPuntosDeAtaque());
 				
 	}
-	*/
+	
+	@Test
+	public void AlSerAtacadoSaludDismunuyeSegunPtsAtaqueRival(){
+		Personaje Humano = new Humano();
+		Personaje Enemigo = new Humano();
+		int ptsAtaque = Enemigo.obtenerPuntosDeAtaque();
+		
+		Enemigo.atacar(Humano);
+		
+		Assert.assertEquals(Humano.getSalud()+ptsAtaque, Humano.saludmax);
+	}
+	
 }

@@ -9,6 +9,7 @@ import personaje.Personaje;
 public class Mago extends Personaje {
 
 	private Map<String, Hechizo> hechizos = new HashMap<String, Hechizo>();
+	int cantidadDeAtaques;
 	
 	public void agregarHechizo(String conjuro, Hechizo hechizo) {
 		this.hechizos.put(conjuro, hechizo);
@@ -22,16 +23,19 @@ public class Mago extends Personaje {
 		this.hechizos.get(conjuro).afectar(personaje);
 	}
 
-	@Override
-	protected boolean puedeAtacar() {
-		return true;
+	protected void despuesDeAtacar() {
+		cantidadDeAtaques++;
 	}
-
+	
 	@Override
 	protected int calcularPuntosDeAtaque() {
-		return 10;
+		return 10 + cantidadDeAtaques;
 	}
 
+	@Override
+	protected boolean puedeAtacar() {
+		return energia >= calcularPuntosDeAtaque();
+	}
 	@Override
 	public int obtenerPuntosDeDefensa() {
 		// TODO Auto-generated method stub
