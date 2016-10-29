@@ -21,8 +21,7 @@ public abstract class Personaje implements Atacable {
 		}
 	}
 	
-	protected void SubirNivel(){
-		
+	public void SubirNivel(){
 	}
 
 	protected void despuesDeAtacar() { 

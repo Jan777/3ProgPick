@@ -23,7 +23,23 @@ public abstract class Alianza {
 	public List<Personaje> getAliados(){
 		return this.aliados;
 	}
+<<<<<<< HEAD
 	public boolean isEmpty() {
 		return this.cantidad == 0;
+=======
+	
+	public boolean PoderAliarse(){
+		if (this.cantidadDeAliados() >= 5) {
+			return false;}
+		else {
+			return true;
+		}
+	}
+	
+	public void Aliarse(Personaje personaje){
+		if (this.PoderAliarse()) {
+			this.aliados.add(personaje);
+		}
+>>>>>>> 363192ccd9bf0746dc98322b7a413e8495c97636
 	}
 }

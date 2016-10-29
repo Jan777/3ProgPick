@@ -1,4 +1,4 @@
-﻿# [Nombre del juego]
+﻿# [WarDraft]
 
 ## Sobre las personas
 

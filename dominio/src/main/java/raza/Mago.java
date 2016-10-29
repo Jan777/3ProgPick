@@ -3,8 +3,10 @@ package raza;
 import java.util.HashMap;
 import java.util.Map;
 
+import items.Engorgio;
 import items.Hechizo;
 import personaje.Personaje;
+
 
 public class Mago extends Personaje {
 
@@ -25,6 +27,12 @@ public class Mago extends Personaje {
 
 	protected void despuesDeAtacar() {
 		cantidadDeAtaques++;
+	}
+	
+	@Override
+	public void SubirNivel(){
+		this.nivel++;
+		this.agregarHechizo("Engorgio", new Engorgio());
 	}
 	
 	@Override
