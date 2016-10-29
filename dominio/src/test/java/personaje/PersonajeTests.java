@@ -1,12 +1,18 @@
 package personaje;
 
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.junit.Assert;
+
 import org.junit.Test;
 
 import raza.Humano;
 import raza.Mago;
 import raza.Orco;
+import alianza.AlianzaDeHumanos;
+
 
 public class PersonajeTests {
 
@@ -63,5 +69,39 @@ public class PersonajeTests {
 		
 		Assert.assertEquals(Humano.getSalud()+ptsAtaque, Humano.saludmax);
 	}
+	
+	@Test
+	public void MagoAlSubirDeNivelAdquiereHechizo(){
+		Mago Mago = new Mago();
+		int cantHechizos = Mago.getCantidadDeHechizos();
+		Mago.SubirNivel();
+		
+		Assert.assertTrue(Mago.getCantidadDeHechizos() > cantHechizos);	
+	}
+	
+	@Test
+	public void OrcoAlAtacarMagoSaludDisminuyeEn10(){
+		Orco Orco = new Orco();
+		Mago Enemigo = new Mago();
+		int ptsSalud = Enemigo.getSalud();
+		
+		Orco.atacar(Enemigo);
+		
+		Assert.assertEquals(10, ptsSalud-Enemigo.getSalud());
+		
+	}
+	
+	@Test
+	public void NoPoderAliarseSiAlianzaSupera5(){
+		List<Personaje> aliados = new LinkedList<Personaje>();
+		for (int i = 0; i < 5; i++) {
+			aliados.add(new Humano());
+		}
+		
+		AlianzaDeHumanos Alianza = new AlianzaDeHumanos(aliados);
+		Assert.assertFalse(Alianza.PoderAliarse());
+	}
+	
+	
 	
 }

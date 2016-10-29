@@ -24,4 +24,18 @@ public abstract class Alianza {
 	public List<Personaje> getAliados(){
 		return this.aliados;
 	}
+	
+	public boolean PoderAliarse(){
+		if (this.cantidadDeAliados() >= 5) {
+			return false;}
+		else {
+			return true;
+		}
+	}
+	
+	public void Aliarse(Personaje personaje){
+		if (this.PoderAliarse()) {
+			this.aliados.add(personaje);
+		}
+	}
 }
