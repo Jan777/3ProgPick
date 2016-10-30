@@ -15,22 +15,14 @@ import enums.TipoEventoEnum;
 
 public class LogicaJuego {
 
-
 	private Socket miSocket;
-	protected boolean conectado;
-
-	protected ObjectOutputStream bufferSalidaObj;
 	protected ObjectInputStream bufferEntradaObj;
-
-
-	protected String login = "ERR";
-	protected String registro = "ERR";
+	protected ObjectOutputStream bufferSalidaObj;
+	protected boolean conectado;
 	private String usuario;
 	protected String tipo;
-
-	public LogicaJuego() {
-		
-	}
+	protected String login = "ERROR";
+	protected String registro = "ERROR";
 
 	public void conexion(String ip, int port, String usuario, String password, String accion) {
 
@@ -39,8 +31,9 @@ public class LogicaJuego {
 			miSocket = new Socket(ip, port);
 			conectado = true;
 			// Creo stream de entrada y salida para objetos
-			bufferSalidaObj = new ObjectOutputStream(miSocket.getOutputStream());
-			bufferEntradaObj = new ObjectInputStream(miSocket.getInputStream());
+			bufferEntradaObj = new ObjectInputStream(miSocket.getInputStream());	// la respuesta que llega del server
+			bufferSalidaObj = new ObjectOutputStream(miSocket.getOutputStream());	// lo que le envia al server
+			
 			if (accion.equals("LOGIN")) {
 				login(usuario, password);
 			} else {
@@ -116,11 +109,10 @@ public class LogicaJuego {
 
 	public void login(String usuario, String password) {
 		try {
-			this.usuario = usuario;
-			tipo = "LOGIN";
-			String aux = "LOGIN " + usuario + " " + password;
+			Gson gson = new Gson();
+			Jugador jugador = new Jugador(TipoEventoEnum.LOGEARSE.ordinal(), usuario, password);
 			bufferSalidaObj.reset();
-			bufferSalidaObj.writeObject(aux);
+			bufferSalidaObj.writeObject(gson.toJson(jugador));			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -128,10 +120,10 @@ public class LogicaJuego {
 
 	public void registro(String usuario, String password) {
 		try {
-		Gson gson = new Gson();
-		Jugador jugador = new Jugador(TipoEventoEnum.REGISTRAR_USUARIO.ordinal(), usuario, password);
-		bufferSalidaObj.reset();
-		bufferSalidaObj.writeObject(gson.toJson(jugador));			
+			Gson gson = new Gson();
+			Jugador jugador = new Jugador(TipoEventoEnum.REGISTRAR_USUARIO.ordinal(), usuario, password);
+			bufferSalidaObj.reset();
+			bufferSalidaObj.writeObject(gson.toJson(jugador));			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

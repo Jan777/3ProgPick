@@ -38,7 +38,7 @@ import java.awt.Color;
 public class Servidor extends JFrame {
 
 	private ServerSocket serverSocket;
-	private boolean listening;
+	private boolean escuchando;
 	private JPanel contentPane;
 	private JTextArea textArea;
 	private JButton btnIniciarServidor;
@@ -72,9 +72,9 @@ public class Servidor extends JFrame {
 
 			// Creo socket servidor en el puerto indicado
 			serverSocket = new ServerSocket(port);
-			listening = true;
+			escuchando = true;
 			printGUI("***Socket creado***\nIP server: " + InetAddress.getLocalHost().getHostAddress() + " - Puerto: " + serverSocket.getLocalPort());
-			while (listening) {
+			while (escuchando) {
 
 				//printGUI("Esperando conexión de cliente...");
 				Socket clientSocket = serverSocket.accept();
@@ -116,7 +116,7 @@ public class Servidor extends JFrame {
 	private void cerrarServer() {
 		try {
 			salir = 1;
-			listening = false;
+			escuchando = false;
 			cerrarSockets();
 			conn.Close();
 			System.exit(ABORT);

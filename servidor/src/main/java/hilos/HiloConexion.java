@@ -48,23 +48,47 @@ public class HiloConexion extends Thread implements Runnable {
 				Object obj = bufferEntradaObj.readObject();
 				if(obj != null) {
 					String json = (String)obj;
-					Entidad entidad = gson.fromJson(json, Jugador.class);	
-					if(entidad.getTipo() == TipoEventoEnum.REGISTRAR_USUARIO) {
-						if(Servidor.getCon().insert("INSERT INTO Usuario VALUES('" + ((Jugador)entidad).getNombreUsuario() + "', '" + ((Jugador)entidad).getPassword() + "')") != 0){
-							bufferSalidaObj.reset();
-							bufferSalidaObj.writeObject("REGISTRO OK");
+					if(json.length() > 0) {
+						Entidad entidad = gson.fromJson(json, Jugador.class);	
+						if(entidad.getTipo() == TipoEventoEnum.REGISTRAR_USUARIO) {
+							if(Servidor.getCon().insert("INSERT INTO Usuario VALUES('" + ((Jugador)entidad).getNombreUsuario() + "', '" + ((Jugador)entidad).getPassword() + "')") != 0){
+								bufferSalidaObj.reset();
+								bufferSalidaObj.writeObject("REGISTRO OK");
+							}
+							else{
+								bufferSalidaObj.reset();
+								bufferSalidaObj.writeObject("ERROR");
+							}
+						} else if(entidad.getTipo() == TipoEventoEnum.LOGEARSE) {
+							int i = 0;
+							int encontro = 0;
+							while (i < servidor.getUsuarios().size() && servidor.getUsuarios() != null && encontro == 0) {
+								if (((Jugador)entidad).getNombreUsuario().equals(servidor.getUsuarios().get(i))) {
+									encontro = 1;
+								}
+								i++;
+							}
+							if (encontro == 0) {
+								if (Servidor.getCon().query("SELECT 1 FROM Usuario WHERE Usuario ='" + ((Jugador)entidad).getNombreUsuario() + "' and Password ='" + ((Jugador)entidad).getPassword() + "'") != null) {
+									bufferSalidaObj.reset();
+									bufferSalidaObj.writeObject("LOGIN OK");
+									servidor.getUsuarios().add(((Jugador)entidad).getNombreUsuario());
+								} else {
+									bufferSalidaObj.reset();
+									bufferSalidaObj.writeObject("LOGIN NO");
+								}
+							} else {
+								bufferSalidaObj.reset();
+								bufferSalidaObj.writeObject("LOGUEADO");
+							}
 						}
-						else{
-							bufferSalidaObj.reset();
-							bufferSalidaObj.writeObject("ERROR");
+						else if(entidad.getTipo() == TipoEventoEnum.SALIR) {
+							conectado = false;
+							desconectar();
 						}
-					}
-					else if(entidad.getTipo() == TipoEventoEnum.SALIR) {
-						conectado = false;
-						desconectar();
-					}
-					else {
-						
+						else {
+							
+						}
 					}
 				}
 			}

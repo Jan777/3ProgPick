@@ -161,14 +161,12 @@ public class Login extends JFrame {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				// validacion de usuario
-				if (tusuario.getText().length() > 0 && tservidor.getText().length() > 0
-						&& tpuerto.getText().length() > 0 && tpassword.getPassword().length != 0) {
-					cliente = new Cliente(tusuario.getText().toUpperCase(), tpassword.getText().toUpperCase(),
-							tservidor.getText(), tpuerto.getText(), "LOGIN");
+				if (tusuario.getText().length() > 0 && tservidor.getText().length() > 0 && tpuerto.getText().length() > 0 && tpassword.getPassword().length != 0) {
+					cliente = new Cliente(tusuario.getText().toUpperCase(), tpassword.getText().toUpperCase(), tservidor.getText(), tpuerto.getText(), "LOGIN");
 					try {
 						TimeUnit.MILLISECONDS.sleep(100);
 						if (cliente.getJuego().getLogin().equals("OK")) {
-							
+							System.out.println("HAZ INGRESADO !!!");
 						} else if (cliente.getJuego().getLogin().equals("NO")) {
 							JOptionPane.showMessageDialog(null, "El usuario no existe, debe registrarse");
 							tusuario.setText("");
