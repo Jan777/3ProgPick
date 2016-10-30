@@ -41,6 +41,10 @@ public class DBConnection implements Serializable {
         return instance;
     }
 	
+	public void Close() throws SQLException {
+		conn.close();
+	}
+	
 	/*
 	public static void main(String[] args) throws SQLException {
 		DBConnection db = DBConnection.getInstance();

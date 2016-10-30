@@ -11,7 +11,7 @@ public class Partida extends Entidad implements Serializable {
 	private static final long serialVersionUID = -7960889180717670695L;
 
 	private String nombre;
-	private ArrayList<Usuario> jugadores;
+	private ArrayList<Jugador> jugadores;
 	
 	public String getNombre() {
 		return nombre;
@@ -19,10 +19,10 @@ public class Partida extends Entidad implements Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public ArrayList<Usuario> getJugadores() {
+	public ArrayList<Jugador> getJugadores() {
 		return jugadores;
 	}
-	public void setJugadores(ArrayList<Usuario> jugadores) {
+	public void setJugadores(ArrayList<Jugador> jugadores) {
 		this.jugadores = jugadores;
 	}
 	
@@ -30,7 +30,7 @@ public class Partida extends Entidad implements Serializable {
 		return this.jugadores.size();
 	}
 	
-	public void agregarJugador(Usuario jugador){
+	public void agregarJugador(Jugador jugador){
 		this.jugadores.add(jugador);
 	}
 }

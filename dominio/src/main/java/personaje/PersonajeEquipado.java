@@ -5,6 +5,7 @@ public class PersonajeEquipado extends Personaje {
 	Personaje personajeDecorado;
 	
 	public PersonajeEquipado(Personaje personajeDecorado) {
+		super("");
 		this.personajeDecorado = personajeDecorado;
 	}
 

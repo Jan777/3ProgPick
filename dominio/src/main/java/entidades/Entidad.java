@@ -2,7 +2,7 @@ package entidades;
 
 import enums.TipoEventoEnum;
 
-public class Entidad {
+public abstract class Entidad {
 
 	public TipoEventoEnum tipo;
 

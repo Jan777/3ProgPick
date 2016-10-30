@@ -10,7 +10,7 @@ import raza.Humano;
 public class ItemsTests {
 	@Test
 	public void EquipoEscudoAumentaDefensaen10(){
-		Personaje Humano = new Humano();
+		Personaje Humano = new Humano("Aragon");
 		int ptsDefensa = Humano.obtenerPuntosDeDefensa();
 		
 		Humano = new Escudo(Humano);
@@ -19,7 +19,7 @@ public class ItemsTests {
 	}
 	@Test
 	public void EquipoEspadaAumentaAtaqueen5(){
-		Personaje Humano = new Humano();
+		Personaje Humano = new Humano("Aragon");
 		int Ataque = Humano.obtenerPuntosDeAtaque();
 		
 		Humano = new Espada(Humano);
@@ -28,7 +28,7 @@ public class ItemsTests {
 	}
 	@Test
 	public void EquipoArcoAumentaAtaqueen15(){
-		Personaje Humano = new Humano();
+		Personaje Humano = new Humano("Aragon");
 		int Ataque = Humano.obtenerPuntosDeAtaque();
 		
 		Humano = new Arco(Humano);
@@ -37,7 +37,7 @@ public class ItemsTests {
 	}
 	@Test
 	public void EquipoFlechaAumentaAtaqueen5(){
-		Personaje Humano = new Humano();
+		Personaje Humano = new Humano("Aragon");
 		int Ataque = Humano.obtenerPuntosDeAtaque();
 		
 		Humano = new Flecha(Humano);
@@ -47,7 +47,7 @@ public class ItemsTests {
 	
 	@Test
 	public void EquipoVaritaAumentaAtaqueen20(){
-		Personaje Humano = new Humano();
+		Personaje Humano = new Humano("Aragon");
 		int Ataque = Humano.obtenerPuntosDeAtaque();
 		
 		Humano = new VaritaMagica(Humano);

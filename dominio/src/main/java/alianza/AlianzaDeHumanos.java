@@ -13,7 +13,7 @@ public class AlianzaDeHumanos extends Alianza {
 		super(cantidad);
 		this.aliados = new ArrayList<Personaje>();
 		for (int i = 0; i < cantidad; i++) {
-			this.aliados.add(new Humano());
+			this.aliados.add(new Humano("" + i));
 		}
 	}
 	

@@ -8,6 +8,11 @@ import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
 
+import com.google.gson.Gson;
+
+import entidades.Jugador;
+import enums.TipoEventoEnum;
+
 public class LogicaJuego {
 
 
@@ -43,7 +48,7 @@ public class LogicaJuego {
 			}
 			while (conectado) {
 				Object obj = bufferEntradaObj.readObject();
-				if(obj != null){
+				if(obj != null) {
 					String aux = (String) obj;
 					String[] datos = new String[2];
 					datos = aux.split(" ");
@@ -123,10 +128,10 @@ public class LogicaJuego {
 
 	public void registro(String usuario, String password) {
 		try {
-			tipo = "REGISTRO";
-			String aux = "REGISTRO " + usuario + " " + password;
-			bufferSalidaObj.reset();
-			bufferSalidaObj.writeObject(aux);
+		Gson gson = new Gson();
+		Jugador jugador = new Jugador(TipoEventoEnum.REGISTRAR_USUARIO.ordinal(), usuario, password);
+		bufferSalidaObj.reset();
+		bufferSalidaObj.writeObject(gson.toJson(jugador));			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

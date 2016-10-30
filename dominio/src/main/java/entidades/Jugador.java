@@ -5,7 +5,7 @@ import java.io.Serializable;
 import enums.TipoEventoEnum;
 import personaje.Personaje;
 
-public class Usuario extends Entidad implements Serializable {
+public class Jugador extends Entidad implements Serializable {
 
 	/**
 	 * @author Matias Jimenez
@@ -18,7 +18,7 @@ public class Usuario extends Entidad implements Serializable {
 	private int enemigosEliminados;
 	private Personaje personaje;
 	
-	public Usuario(int tipo, String usuario, String password){
+	public Jugador(int tipo, String usuario, String password){
 		this.tipo = TipoEventoEnum.fromInteger(tipo);
 		this.nombreUsuario = usuario;
 		this.password = password;

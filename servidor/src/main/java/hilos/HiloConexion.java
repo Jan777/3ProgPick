@@ -5,6 +5,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import com.google.gson.Gson;
+
+import entidades.Entidad;
+import entidades.Jugador;
+import enums.TipoEventoEnum;
 import pantallas.Servidor;
 
 /**
@@ -38,29 +43,28 @@ public class HiloConexion extends Thread implements Runnable {
 		try {
 			this.threadSalida = new HiloConexionSalida(bufferSalidaObj, servidor);
 			this.threadSalida.start();
-			while(this.conectado){
+			Gson gson = new Gson();
+			while(this.conectado) {
 				Object obj = bufferEntradaObj.readObject();
-				if(obj != null){
-					String aux = (String)obj;
-					String[] datos = new String[3];
-					datos = aux.split(" ");
-					switch (datos[0]) {
-					case "REGISTRO":
-						if(Servidor.getCon().insert("INSERT INTO Usuario VALUES('" + datos[1] + "', '" + datos[1] + "')") != 0){
+				if(obj != null) {
+					String json = (String)obj;
+					Entidad entidad = gson.fromJson(json, Jugador.class);	
+					if(entidad.getTipo() == TipoEventoEnum.REGISTRAR_USUARIO) {
+						if(Servidor.getCon().insert("INSERT INTO Usuario VALUES('" + ((Jugador)entidad).getNombreUsuario() + "', '" + ((Jugador)entidad).getPassword() + "')") != 0){
 							bufferSalidaObj.reset();
-							bufferSalidaObj.writeObject("REGISTRO INSERTADO OK");
+							bufferSalidaObj.writeObject("REGISTRO OK");
 						}
 						else{
 							bufferSalidaObj.reset();
-							bufferSalidaObj.writeObject("ERROR !!!");
+							bufferSalidaObj.writeObject("ERROR");
 						}
-						break;
-					case "SALIR":
+					}
+					else if(entidad.getTipo() == TipoEventoEnum.SALIR) {
 						conectado = false;
 						desconectar();
-						break;
-					default:
-						break;
+					}
+					else {
+						
 					}
 				}
 			}

@@ -11,8 +11,8 @@ public class HechizosTests {
 	
 	@Test
 	public void MagoUtilizaEspectroPatronumReduceVidaAlaMitad(){
-		Mago Harry = new Mago();
-		Humano Enemigo = new Humano();
+		Mago Harry = new Mago("Harry Potter");
+		Humano Enemigo = new Humano("Aragon");
 		Harry.agregarHechizo("Patronum", new ExpectroPatronum());
 		int ptsSalud = Enemigo.getSalud();
 		

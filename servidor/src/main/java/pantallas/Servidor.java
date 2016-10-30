@@ -2,6 +2,7 @@ package pantallas;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.sql.SQLException;
 import java.io.*;
 import java.net.InetAddress;
@@ -101,18 +102,27 @@ public class Servidor extends JFrame {
 
 	private void cerrarSockets() {
 		try {
-			if (serverSocket != null && !serverSocket.isClosed())
+			if (serverSocket != null && !serverSocket.isClosed()) {
+				Thread.currentThread().interrupt();
 				serverSocket.close();
+			}
+		} catch (SocketException s){
+
 		} catch (IOException e1) {
 			e1.printStackTrace();
-		}
+		} 
 	}
 	
 	private void cerrarServer() {
-		salir = 1;
-		listening = false;
-		cerrarSockets();
-		System.exit(ABORT);
+		try {
+			salir = 1;
+			listening = false;
+			cerrarSockets();
+			conn.Close();
+			System.exit(ABORT);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Servidor() throws SQLException {
@@ -173,11 +183,9 @@ public class Servidor extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				listening = false;
-				cerrarSockets();
+				cerrarServer();
 			}
 		});
-
 	}
 
 	public ArrayList<String> getUsuarios() {

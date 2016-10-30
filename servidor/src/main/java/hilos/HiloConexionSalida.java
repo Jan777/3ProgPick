@@ -25,7 +25,7 @@ public class HiloConexionSalida extends Thread {
 		try {
 			while (this.conectado) {
 				bufferSalidaObj.reset();
-				bufferSalidaObj.writeObject("REGISTRAR");
+				bufferSalidaObj.writeObject("");
 				Thread.sleep(12);
 			}
 		} catch (Exception e) {

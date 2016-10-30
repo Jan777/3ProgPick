@@ -10,6 +10,10 @@ import personaje.Personaje;
 
 public class Mago extends Personaje {
 
+	public Mago(String nombre) {
+		super(nombre);
+	}
+
 	private Map<String, Hechizo> hechizos = new HashMap<String, Hechizo>();
 	int cantidadDeAtaques;
 	

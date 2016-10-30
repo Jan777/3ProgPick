@@ -5,6 +5,10 @@ import personaje.Personaje;
 public class Humano extends Personaje {
 	int cantidadDeAtaques;
 	
+	public Humano(String nombre) {
+		super(nombre);
+	}
+
 	protected void despuesDeAtacar() {
 		cantidadDeAtaques++;
 	}

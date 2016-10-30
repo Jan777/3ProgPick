@@ -19,8 +19,8 @@ public class PersonajeTests {
 	@Test
 	public void queUnEnemigoSufreDaño(){
 		
-		Personaje mago = new Mago();
-		Personaje enemigo = new Orco();
+		Personaje mago = new Mago("Harry Potter");
+		Personaje enemigo = new Orco("Orco");
 		Assert.assertEquals(100, enemigo.obtenerNivelDeSalud());
 		
 		mago.atacar(enemigo);
@@ -29,7 +29,7 @@ public class PersonajeTests {
 	
 	@Test
 	public void OrcoCurado(){
-		Personaje Orco = new Orco();
+		Personaje Orco = new Orco("Orco");
 		Orco.serCurado();
 		Assert.assertEquals(100, Orco.getSalud());
 	}
@@ -37,8 +37,8 @@ public class PersonajeTests {
 	
 	@Test
 	public void MagoIncrementaAtaqueAlAtacar(){
-		Personaje Mago = new Mago();
-		Personaje Enemigo = new Orco();
+		Personaje Mago = new Mago("Harry Potter");
+		Personaje Enemigo = new Orco("Orco");
 		int ptsAtaque = Mago.obtenerPuntosDeAtaque();
 		
 		Mago.atacar(Enemigo);
@@ -49,8 +49,8 @@ public class PersonajeTests {
 	
 	@Test
 	public void HumanoIncrementaAtaqueAlAtacarEnDiez(){
-		Personaje Humano = new Humano();
-		Personaje Enemigo = new Mago();
+		Personaje Humano = new Humano("Aragon");
+		Personaje Enemigo = new Mago("Harry Potter");
 		int ptsAtaque = Humano.obtenerPuntosDeAtaque();
 		
 		Humano.atacar(Enemigo);
@@ -61,18 +61,18 @@ public class PersonajeTests {
 	
 	@Test
 	public void AlSerAtacadoSaludDismunuyeSegunPtsAtaqueRival(){
-		Personaje Humano = new Humano();
-		Personaje Enemigo = new Humano();
+		Personaje Humano = new Humano("Aragon");
+		Personaje Enemigo = new Humano("Aragon");
 		int ptsAtaque = Enemigo.obtenerPuntosDeAtaque();
 		
 		Enemigo.atacar(Humano);
 		
-		Assert.assertEquals(Humano.getSalud()+ptsAtaque, Humano.saludmax);
+		Assert.assertEquals(Humano.getSalud()+ptsAtaque, Humano.SALUD_MAX);
 	}
 	
 	@Test
 	public void MagoAlSubirDeNivelAdquiereHechizo(){
-		Mago Mago = new Mago();
+		Mago Mago = new Mago("Harry Potter");
 		int cantHechizos = Mago.getCantidadDeHechizos();
 		Mago.SubirNivel();
 		
@@ -81,8 +81,8 @@ public class PersonajeTests {
 	
 	@Test
 	public void OrcoAlAtacarMagoSaludDisminuyeEn10(){
-		Orco Orco = new Orco();
-		Mago Enemigo = new Mago();
+		Orco Orco = new Orco("Orco");
+		Mago Enemigo = new Mago("Harry Potter");
 		int ptsSalud = Enemigo.getSalud();
 		
 		Orco.atacar(Enemigo);
@@ -95,7 +95,7 @@ public class PersonajeTests {
 	public void NoPoderAliarseSiAlianzaSupera5(){
 		List<Personaje> aliados = new LinkedList<Personaje>();
 		for (int i = 0; i < 5; i++) {
-			aliados.add(new Humano());
+			aliados.add(new Humano("Aragon"));
 		}
 		
 		AlianzaDeHumanos Alianza = new AlianzaDeHumanos(aliados);
