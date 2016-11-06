@@ -5,8 +5,8 @@
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="C:/Users/Matias Jimenez/Documents/GitHub/jrpg/servidor/librerias/sqlite-jdbc-3.8.11.2.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/dominio"/>
-	<classpathentry kind="lib" path="C:/Users/Matias Jimenez/Documents/GitHub/jrpg/servidor/librerias/gson-2.2.2.jar"/>
+	<classpathentry kind="lib" path="librerias/gson-2.2.2.jar"/>
+	<classpathentry kind="lib" path="librerias/sqlite-jdbc-3.8.11.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
