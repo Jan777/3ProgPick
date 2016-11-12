@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DBConnection implements Serializable {
+import peticiones.CodigoPeticion;
+
+public class ConexionBD implements Serializable {
 
 	/**
 	 * @author Matias Jimenez
@@ -15,11 +17,11 @@ public class DBConnection implements Serializable {
 	 */
 	private static final long serialVersionUID = -2292999609271615808L;
 	private static Connection conn = null;
-	private static DBConnection instance;
+	private static ConexionBD instance;
 	private Statement statement = null;
 	private String ruta = "WarDraft.db";
 	
-	public DBConnection() throws SQLException {
+	public ConexionBD() throws SQLException {
 		try {
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:"+ruta);
@@ -33,10 +35,10 @@ public class DBConnection implements Serializable {
 		return conn;
 	}
 	
-	public static DBConnection getInstance() throws SQLException
+	public static ConexionBD getInstance() throws SQLException
     {
         if(instance == null) {
-            instance = new DBConnection();
+            instance = new ConexionBD();
         }
         return instance;
     }
@@ -57,10 +59,32 @@ public class DBConnection implements Serializable {
         return res;
     }
 	
-	public int insert(String insertQuery) throws SQLException {
-        statement = conn.createStatement();
-        int result = statement.executeUpdate(insertQuery);
-        return result;
- 
-    }
+	public int login (String usuario, String password) {
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT nombre, password, permisos FROM Usuario"
+							+ " WHERE nombre LIKE '"+usuario+"' "
+							+ "AND password LIKE '"+password+"'");
+			if(rs.next())
+				return rs.getInt(3);
+			
+		} catch(SQLException sqle) {
+			sqle.printStackTrace();
+		} finally {
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+		return CodigoPeticion.LOGEO_INCORRECTO;
+	}
+	
+	public boolean agregarUsuario (String nombre, String password, String nick, String pregS, String rtaS) throws SQLException {
+		statement = conn.createStatement();
+        statement.executeUpdate("INSERT INTO Usuario VALUES ('"+ nombre +"','"+ password +"','"+ nick +"','"+ pregS +"','"+ rtaS +"',0)");
+        return true;
+	}
 }

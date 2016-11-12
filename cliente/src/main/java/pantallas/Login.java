@@ -1,203 +1,261 @@
 package pantallas;
 
-import java.awt.EventQueue;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JPasswordField;
-import javax.swing.JTextPane;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
+import javax.swing.JPanel;
 
-import logica.Cliente;
-
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.concurrent.TimeUnit;
-import java.awt.event.ActionEvent;
 import java.awt.Color;
 
-@SuppressWarnings("serial")
-public class Login extends JFrame {
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
-	ImageIcon imagen;
-	private Cliente cliente;
+import java.awt.Font;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login frame = new Login();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+import javax.swing.SwingConstants;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+
+import peticiones.CodigoPeticion;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class Login extends JPanel {
+	/**
+	 * @author Matias Jimenez
+	 */
+	private static final long serialVersionUID = 1L;
+	private JTextField txtLoginUsuario;
+	private JPasswordField txtLoginPassword;
+	private JTextField txtRegistrarseNick;
+	private JTextField txtRegistrarseUsuario;
+	private JPasswordField txtRegistrarsePassword;
+	private JTextField txtRegistrarsePregSec;
+	private JTextField txtRegistrarseResp;
+	private JTextField txtRecuperarUsuario;
+	private JTextField txtRecuperarPregSec;
+	private JTextField txtRecuperarRespuesta;
+
+	/**
+	 * Create the panel.
+	 * @param zrCliente 
+	 */
+	public Login(final Cliente zrCliente) {
+		setLayout(null);
+		setBounds(0, 0, 700, 600);
+		
+		JPanel pnlTitulo = new JPanel();
+		pnlTitulo.setLayout(null);
+		pnlTitulo.setBackground(Color.WHITE);
+		pnlTitulo.setBounds(0, 0, 483, 123);
+		add(pnlTitulo);
+		
+		JLabel lblWordDraft = new JLabel("War Draft");
+		//label.setIcon(new ImageIcon(ZRLogin.class.getResource("")));
+		lblWordDraft.setHorizontalAlignment(SwingConstants.LEFT);
+		lblWordDraft.setFont(new Font("Tahoma", Font.PLAIN, 99));
+		lblWordDraft.setBackground(Color.RED);
+		lblWordDraft.setBounds(0, 0, 700, 125);
+		pnlTitulo.add(lblWordDraft);
+		
+		JPanel pnlLogin = new JPanel();
+		pnlLogin.setLayout(null);
+		pnlLogin.setBounds(0, 0, 700, 600);
+		add(pnlLogin);
+		
+		JLabel label_1 = new JLabel("Entrar");
+		label_1.setHorizontalAlignment(SwingConstants.CENTER);
+		label_1.setForeground(Color.BLACK);
+		label_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		label_1.setBounds(10, 130, 173, 29);
+		pnlLogin.add(label_1);
+		
+		JLabel label_2 = new JLabel("Usuario");
+		label_2.setForeground(Color.BLACK);
+		label_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		label_2.setBackground(Color.BLACK);
+		label_2.setBounds(10, 170, 46, 14);
+		pnlLogin.add(label_2);
+		
+		txtLoginUsuario = new JTextField();
+		txtLoginUsuario.setColumns(10);
+		txtLoginUsuario.setBounds(10, 195, 188, 20);
+		pnlLogin.add(txtLoginUsuario);
+		
+		JLabel label_3 = new JLabel("Contrase\u00F1a");
+		label_3.setForeground(Color.BLACK);
+		label_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		label_3.setBackground(Color.BLACK);
+		label_3.setBounds(10, 226, 130, 14);
+		pnlLogin.add(label_3);
+		
+		txtLoginPassword = new JPasswordField();
+		txtLoginPassword.setBounds(10, 251, 188, 20);
+		pnlLogin.add(txtLoginPassword);
+		
+		JButton btnLoginEntrar = new JButton("Entrar");
+		btnLoginEntrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String usuario = txtLoginUsuario.getText(),
+					password = txtLoginPassword.getText().toString();
+				//System.out.println(usuario+" "+password);
+				if( Cliente.cliente.loguearse(usuario, password) != CodigoPeticion.LOGEO_INCORRECTO ) {
+					JOptionPane.showMessageDialog(null, "Te has logueado correctamente.");
 				}
+				else {
+					JOptionPane.showMessageDialog(null, "Ha fallado el login");
+				}
+			}
+		});
+		btnLoginEntrar.setBounds(10, 282, 188, 37);
+		pnlLogin.add(btnLoginEntrar);
+		
+		JButton btnLoginSalir = new JButton("Salir");
+		btnLoginSalir.setBounds(10, 330, 188, 37);
+		pnlLogin.add(btnLoginSalir);
+		
+		JButton btnLoginOlvidoContra = new JButton("Olvido su contrasenia?");
+		
+		btnLoginOlvidoContra.setBounds(10, 378, 188, 20);
+		pnlLogin.add(btnLoginOlvidoContra);
+		
+		final JPanel pnlRecContra = new JPanel();
+		pnlRecContra.setVisible(false);
+		pnlRecContra.setLayout(null);
+		pnlRecContra.setBounds(208, 181, 258, 170);
+		pnlLogin.add(pnlRecContra);
+		
+		JLabel label_10 = new JLabel("Usuario");
+		label_10.setForeground(Color.BLACK);
+		label_10.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		label_10.setBackground(Color.BLACK);
+		label_10.setBounds(10, 11, 46, 14);
+		pnlRecContra.add(label_10);
+		
+		txtRecuperarUsuario = new JTextField();
+		txtRecuperarUsuario.setColumns(10);
+		txtRecuperarUsuario.setBounds(11, 26, 163, 20);
+		pnlRecContra.add(txtRecuperarUsuario);
+		
+		JButton btnRecuperarGo = new JButton(">");
+		btnRecuperarGo.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btnRecuperarGo.setBounds(184, 21, 55, 23);
+		pnlRecContra.add(btnRecuperarGo);
+		
+		JLabel label_11 = new JLabel("Pregunta Secreta");
+		label_11.setForeground(Color.BLACK);
+		label_11.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		label_11.setBackground(Color.BLACK);
+		label_11.setBounds(11, 47, 139, 20);
+		pnlRecContra.add(label_11);
+		
+		txtRecuperarPregSec = new JTextField();
+		txtRecuperarPregSec.setEnabled(false);
+		txtRecuperarPregSec.setColumns(10);
+		txtRecuperarPregSec.setBounds(12, 68, 162, 20);
+		pnlRecContra.add(txtRecuperarPregSec);
+		
+		JLabel label_12 = new JLabel("Respuesta");
+		label_12.setForeground(Color.BLACK);
+		label_12.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		label_12.setBackground(Color.BLACK);
+		label_12.setBounds(11, 89, 122, 20);
+		pnlRecContra.add(label_12);
+		
+		txtRecuperarRespuesta = new JTextField();
+		txtRecuperarRespuesta.setColumns(10);
+		txtRecuperarRespuesta.setBounds(12, 112, 162, 20);
+		pnlRecContra.add(txtRecuperarRespuesta);
+		
+		JButton btnRecuperarContra = new JButton("Recuperar contrasenia");
+		btnRecuperarContra.setBounds(11, 137, 163, 20);
+		pnlRecContra.add(btnRecuperarContra);
+		
+		JLabel lblRegistrarse = new JLabel("Registrarse");
+		lblRegistrarse.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRegistrarse.setForeground(Color.BLACK);
+		lblRegistrarse.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblRegistrarse.setBounds(497, 130, 103, 29);
+		pnlLogin.add(lblRegistrarse);
+		
+		JLabel label_5 = new JLabel("Nick");
+		label_5.setForeground(Color.BLACK);
+		label_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		label_5.setBounds(477, 155, 147, 14);
+		pnlLogin.add(label_5);
+		
+		txtRegistrarseNick = new JTextField();
+		txtRegistrarseNick.setColumns(10);
+		txtRegistrarseNick.setBounds(477, 180, 147, 20);
+		pnlLogin.add(txtRegistrarseNick);
+		
+		JLabel label_6 = new JLabel("Usuario");
+		label_6.setForeground(Color.BLACK);
+		label_6.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		label_6.setBounds(477, 211, 147, 14);
+		pnlLogin.add(label_6);
+		
+		txtRegistrarseUsuario = new JTextField();
+		txtRegistrarseUsuario.setColumns(10);
+		txtRegistrarseUsuario.setBounds(477, 236, 147, 20);
+		pnlLogin.add(txtRegistrarseUsuario);
+		
+		JLabel label_7 = new JLabel("Contrase\u00F1a");
+		label_7.setForeground(Color.BLACK);
+		label_7.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		label_7.setBounds(477, 267, 147, 14);
+		pnlLogin.add(label_7);
+		
+		txtRegistrarsePassword = new JPasswordField();
+		txtRegistrarsePassword.setBounds(476, 292, 148, 20);
+		pnlLogin.add(txtRegistrarsePassword);
+		
+		JLabel label_8 = new JLabel("Pregunta Secreta");
+		label_8.setForeground(Color.BLACK);
+		label_8.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		label_8.setBounds(476, 323, 148, 14);
+		pnlLogin.add(label_8);
+		
+		txtRegistrarsePregSec = new JTextField();
+		txtRegistrarsePregSec.setColumns(10);
+		txtRegistrarsePregSec.setBounds(476, 348, 148, 20);
+		pnlLogin.add(txtRegistrarsePregSec);
+		
+		JLabel label_9 = new JLabel("Respuesta");
+		label_9.setForeground(Color.BLACK);
+		label_9.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		label_9.setBounds(476, 379, 148, 14);
+		pnlLogin.add(label_9);
+		
+		txtRegistrarseResp = new JTextField();
+		txtRegistrarseResp.setColumns(10);
+		txtRegistrarseResp.setBounds(476, 404, 148, 20);
+		pnlLogin.add(txtRegistrarseResp);
+		
+		JButton btnCrearUsuario = new JButton("Crear Usuario");
+		btnCrearUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String usuarioR = txtRegistrarseUsuario.getText(),
+					   passwordR = txtRegistrarsePassword.getText().toString(),
+					   nickR = txtRegistrarseNick.getText(),
+					   pregR = txtRegistrarsePregSec.getText(),
+					   respR = txtRegistrarseResp.getText();
+				Cliente.cliente.registrarse(usuarioR, passwordR, nickR, pregR, respR);
+				JOptionPane.showMessageDialog(null, "El usuario se ha creado correctamente.");
+			}
+		});
+		btnCrearUsuario.setBounds(477, 454, 147, 37);
+		pnlLogin.add(btnCrearUsuario);
+		
+		JLabel label_13 = new JLabel("");
+		//label_13.setIcon(new ImageIcon(ZRLogin.class.getResource("")));
+		label_13.setBounds(-24, 123, 719, 500);
+		pnlLogin.add(label_13);
+		
+		btnLoginOlvidoContra.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				pnlRecContra.setVisible(true);
 			}
 		});
 	}
-
-	public Login() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(500, 500);
-		setLocationRelativeTo(null);
-		setResizable(false);
-		getContentPane().setLayout(null);
-
-		// text de usuario
-		JLabel lusuario = new JLabel("USUARIO");
-		lusuario.setForeground(Color.BLACK);
-		lusuario.setHorizontalAlignment(SwingConstants.CENTER);
-		lusuario.setBounds(140, 157, 63, 20);
-		getContentPane().add(lusuario);
-		final JTextPane tusuario = new JTextPane();
-		tusuario.setBounds(201, 157, 170, 20);
-		getContentPane().add(tusuario);
-		tusuario.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_TAB) {
-					tusuario.transferFocus();
-					e.consume();
-				}
-			}
-		});
-
-		// text de password
-		JLabel lpassword = new JLabel("PASSWORD");
-		lpassword.setForeground(Color.BLACK);
-		lpassword.setBounds(126, 203, 70, 20);
-		getContentPane().add(lpassword);
-		final JPasswordField tpassword = new JPasswordField();
-		tpassword.setBounds(199, 203, 172, 20);
-		getContentPane().add(tpassword);
-		tpassword.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_TAB) {
-					tpassword.transferFocus();
-					e.consume();
-				}
-			}
-		});
-
-		// DATOS DEL SERVER
-		JLabel lservidor = new JLabel("SERVIDOR");
-		lservidor.setForeground(Color.BLACK);
-		lservidor.setBounds(113, 249, 63, 20);
-		getContentPane().add(lservidor);
-		final JTextPane tservidor = new JTextPane();
-		tservidor.setBounds(179, 249, 106, 20);
-		getContentPane().add(tservidor);
-		tservidor.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_TAB) {
-					tservidor.transferFocus();
-					e.consume();
-				}
-			}
-		});
-		JLabel lpuerto = new JLabel("PUERTO");
-		lpuerto.setForeground(Color.BLACK);
-		lpuerto.setBounds(290, 249, 49, 20);
-		getContentPane().add(lpuerto);
-		final JTextPane tpuerto = new JTextPane();
-		tpuerto.setBounds(340, 249, 49, 20);
-		getContentPane().add(tpuerto);
-		tpuerto.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_TAB) {
-					tpuerto.transferFocus();
-					e.consume();
-				}
-			}
-		});
-
-		tusuario.setText("matias2016");
-		tpassword.setText("matias2016");
-		tservidor.setText("localhost");
-		tpuerto.setText("21412");
-
-		// logica del boton registrar
-		JButton bregistrar = new JButton("Registrarse");
-		bregistrar.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
-			public void actionPerformed(ActionEvent e) {
-				if (tusuario.getText().length() > 0 && tservidor.getText().length() > 0 && tpuerto.getText().length() > 0 && tpassword.getPassword().length != 0) {
-					cliente = new Cliente(tusuario.getText().toUpperCase(), tpassword.getText().toUpperCase(), tservidor.getText(), tpuerto.getText(), "REGISTRO");
-					try {
-						TimeUnit.MILLISECONDS.sleep(100);
-						if (cliente.getJuego().getRegistro().equals("OK")) {
-							JOptionPane.showMessageDialog(null, "Usuario creado");
-							tusuario.setText("");
-							tpassword.setText("");
-							cliente.getJuego().salir();
-						} else if (cliente.getJuego().getRegistro().equals("NO")) {
-							JOptionPane.showMessageDialog(null, "El usuario ya existe");
-							tusuario.setText("");
-							tpassword.setText("");
-							cliente.getJuego().salir();
-						}else {
-							//tusuario.setText("");
-							//tpassword.setText("");
-							//tservidor.setText("");
-						}
-					} catch (InterruptedException e1) {
-						e1.printStackTrace();
-					}
-				}
-			}
-		});
-		bregistrar.setBounds(150, 301, 101, 23);
-		bregistrar.setBorderPainted(false);
-		getContentPane().add(bregistrar);
-
-		// control login
-		JButton blogin = new JButton("LOGIN");
-		blogin.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
-			public void actionPerformed(ActionEvent e) {
-				// validacion de usuario
-				if (tusuario.getText().length() > 0 && tservidor.getText().length() > 0 && tpuerto.getText().length() > 0 && tpassword.getPassword().length != 0) {
-					cliente = new Cliente(tusuario.getText().toUpperCase(), tpassword.getText().toUpperCase(), tservidor.getText(), tpuerto.getText(), "LOGIN");
-					try {
-						TimeUnit.MILLISECONDS.sleep(100);
-						if (cliente.getJuego().getLogin().equals("OK")) {
-							System.out.println("HAZ INGRESADO !!!");
-						} else if (cliente.getJuego().getLogin().equals("NO")) {
-							JOptionPane.showMessageDialog(null, "El usuario no existe, debe registrarse");
-							tusuario.setText("");
-							tpassword.setText("");
-							cliente.getJuego().salir();
-						} else if (cliente.getJuego().getLogin().equals("Y")) {
-							JOptionPane.showMessageDialog(null, "El usuario ya se encuentra logueado");
-							tusuario.setText("");
-							tpassword.setText("");
-						}
-					} catch (InterruptedException e1) {
-						e1.printStackTrace();
-					}
-				} else {
-					JOptionPane.showMessageDialog(null, "No puede haber campos en blanco");
-				}
-			}
-		});
-		blogin.setBounds(292, 301, 89, 23);
-		blogin.setBorderPainted(false);
-		getContentPane().add(blogin);
-
-		// derechos
-		JLabel derechos = new JLabel("Prohibido copiar este juego");
-		derechos.setForeground(Color.WHITE);
-		derechos.setBounds(200, 440, 200, 20);
-		getContentPane().add(derechos);
-	}
-
-	private JFrame getLogin() {
-		return this;
-	}
-
 }
