@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import peticiones.CodigoPeticion;
+import constantes.Mensaje;
 
 public class ConexionBD implements Serializable {
 
@@ -71,12 +71,13 @@ public class ConexionBD implements Serializable {
 				e.printStackTrace();
 			}
 		}	
-		return CodigoPeticion.LOGEO_INCORRECTO;
+		return Mensaje.LOGEO_INCORRECTO;
 	}
 	
 	public boolean agregarUsuario (String nombre, String password, String nick, String pregS, String rtaS) throws SQLException {
 		statement = conn.createStatement();
-        return statement.executeUpdate("INSERT INTO Usuario VALUES ('" + nombre + "','" + password + "','" + nick + "','" + pregS + "','" + rtaS + "',0)") > 0;
+        statement.executeUpdate("INSERT INTO Usuario VALUES ('" + nombre + "','" + password + "','" + nick + "','" + pregS + "','" + rtaS + "',0)");
+        return true;
 	}
 	
 	/*

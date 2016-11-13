@@ -3,12 +3,11 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
 
+import com.google.gson.Gson;
+
+import constantes.Mensaje;
 import pojo.POJORegistrar;
 import pojo.POJOLogin;
-import peticiones.CodigoPeticion;
-
-
-
 import pantallas.Cliente;
 
 public class ClienteLogica extends Thread {
@@ -17,6 +16,8 @@ public class ClienteLogica extends Thread {
 	private Socket socket;
 	private DataInputStream in;
 	private DataOutputStream out;
+	private Gson gson;
+	private String json;
 	
 	private static String respuestaServer;
 	private boolean estaConectado = false;
@@ -59,6 +60,7 @@ public class ClienteLogica extends Thread {
 			socket = new Socket(host, ClienteLogica.PUERTO_POR_DEFECTO);
 			in = new DataInputStream(socket.getInputStream());
 			out = new DataOutputStream(socket.getOutputStream());
+			gson = new Gson();
 			estaConectado = true;
 			indiceUsuario = -1;
 		} catch (Exception e) {
@@ -80,8 +82,8 @@ public class ClienteLogica extends Thread {
 			while(true) {
 				if(in != null) {
 					respuestaServer = in.readUTF();
-					System.out.println("SERVER: " + respuestaServer);
-					sleep(1000);
+					System.out.println("RESPUESTA SERVER: " + respuestaServer);
+					sleep(2000);
 				}
 			}
 		} catch (Exception e) {
@@ -99,34 +101,40 @@ public class ClienteLogica extends Thread {
 	public int registrarse(String nombre, String pass, String nick, String pregSec, String respSecre) {
 		try {
 			POJORegistrar reg = new POJORegistrar(nombre, pass, nick, pregSec, respSecre);
-			System.out.println(reg.getDatosEnviable());
-			out.writeUTF(reg.getDatosEnviable());
+//			System.out.println(reg.getDatosEnviable());
+//			out.writeUTF(reg.getDatosEnviable());
+			json = gson.toJson(reg);
+			out.writeUTF(json);
 			Thread.sleep(2000);
 			reg.setRespuesta(respuestaServer);
-			System.out.println(reg.getRespuesta());
-			int codigoRespuesta = Integer.parseInt(reg.getRespuesta());
-			return CodigoPeticion.REGISTRAR_CORRECTO;			
+//			System.out.println(reg.getRespuesta());
+//			int codigoRespuesta = Integer.parseInt(reg.getRespuesta());
+			return Mensaje.REGISTRAR_CORRECTO;			
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("Error registro");
 		}
-		return CodigoPeticion.REGISTRAR_INCORRECTO;
+		return Mensaje.REGISTRAR_INCORRECTO;
 	}
 	
 	public int loguearse(String nombre, String pass) {
 		try {
 			POJOLogin login = new POJOLogin(nombre, pass);
+			json = gson.toJson(login);
 			
-			out.writeUTF(login.getDatosEnviable());
+			out.writeUTF(json);
 			
-			sleep(1000);	
-			login.setRespuesta(respuestaServer);			
-			int codigoRespuesta = Integer.parseInt(login.getRespuesta());
+			sleep(3000);	
+//			login.setRespuesta(respuestaServer);			
+			int codigoRespuesta = Integer.parseInt(respuestaServer);
 			//System.out.println(codigoRespuesta+" "+CodigoPeticion.LOGEO_CORRECTO);
+			if(codigoRespuesta != 0)
+				System.out.println("AHHHHHHHHH ESTA MAL" + codigoRespuesta);
 			switch (codigoRespuesta) {
-				case CodigoPeticion.LOGEO_CORRECTO_USUARIO:
+				case Mensaje.LOGEO_CORRECTO_USUARIO:
 					this.nombreUsuario = nombre;
-					this.tipoDeCuenta = CodigoPeticion.LOGEO_CORRECTO_USUARIO;
-					return CodigoPeticion.LOGEO_CORRECTO_USUARIO;
+					this.tipoDeCuenta = Mensaje.LOGEO_CORRECTO_USUARIO;
+					return Mensaje.LOGEO_CORRECTO_USUARIO;
 				default:
 					break;
 			}
@@ -134,6 +142,6 @@ public class ClienteLogica extends Thread {
 		} catch (Exception e) {
 			System.out.println("Error logueo");
 		}
-		return CodigoPeticion.LOGEO_INCORRECTO;
+		return Mensaje.LOGEO_INCORRECTO;
 	}
 }

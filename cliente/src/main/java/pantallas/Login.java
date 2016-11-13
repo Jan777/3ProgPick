@@ -10,12 +10,13 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 
 import javax.swing.SwingConstants;
+
+import constantes.Mensaje;
+
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
-
-import peticiones.CodigoPeticion;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -103,7 +104,7 @@ public class Login extends JPanel {
 				String usuario = txtLoginUsuario.getText(),
 					password = txtLoginPassword.getText().toString();
 				System.out.println("User y pass: " + usuario + " " + password);
-				if( Cliente.cliente.loguearse(usuario, password) != CodigoPeticion.LOGEO_INCORRECTO ) {
+				if( Cliente.cliente.loguearse(usuario, password) != Mensaje.LOGEO_INCORRECTO ) {
 					JOptionPane.showMessageDialog(null, "Te has logueado correctamente.");
 				}
 				else {

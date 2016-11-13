@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.net.Socket;
 import java.sql.SQLException;
 
+import com.google.gson.Gson;
+
 import peticiones.Peticion;
 
 public class ServerThread extends Thread {
@@ -13,7 +15,8 @@ public class ServerThread extends Thread {
 	private Socket cSocket;
 	private Server server;
 	private DataInputStream in;
-	private DataOutputStream out;	
+	private DataOutputStream out;
+	private Gson gson;
 	
 	public Server getServer() {
 		return server;
@@ -26,6 +29,7 @@ public class ServerThread extends Thread {
 	public ServerThread(Socket socket, Server server) {
 		this.server = server;
 		this.cSocket = socket;
+		this.gson = new Gson();
 	}
 
 	@Override
@@ -38,8 +42,9 @@ public class ServerThread extends Thread {
 			while(true) {	
 				String entrada = in.readUTF();
 				System.out.println("CLIENTE: " + entrada);
-				Peticion peticion = new Peticion(entrada, this);
+				Peticion peticion = new Peticion(gson, entrada, this);
 				String pojoRespuesta = peticion.getRespuesta();
+				sleep(2000);
 				int tipoRespuesta = 0; 
 				if(tipoRespuesta != -1) {
 					for (UsuarioSocket socket : this.getServer().getListaSocketsUsuarios()) {
@@ -59,6 +64,8 @@ public class ServerThread extends Thread {
 				e2.printStackTrace();
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}

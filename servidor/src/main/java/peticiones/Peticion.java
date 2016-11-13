@@ -2,32 +2,32 @@ package peticiones;
 
 import java.sql.SQLException;
 
+import com.google.gson.Gson;
+
+import constantes.Mensaje;
 import hilos.ServerThread;
+import pojo.*;
 
 public class Peticion {
 	
 	public static final String CARACTER_SEPARACION = ";";
 	public static final int PETICION_GRUPAL = 10000;
 	public static final int PETICION_INDIVIDUAL = 20000;
-	public static final int CARACTERES_PETICION_GI_F = 5;
-	public static final int CARACTERES_PETICION_GI_I = 0;
 	
-	private String[] datosPeticion;
 	private int codPeticion;
 	private String respuesta;
 	
-	public Peticion (String peticion, ServerThread serverTh) throws SQLException {
-		this.datosPeticion = peticion.split(CARACTER_SEPARACION);	
-		this.codPeticion = Integer.parseInt(datosPeticion[0]);
+	public Peticion (Gson gson, String peticion, ServerThread serverTh) throws SQLException {
+		POJOMensaje mje = gson.fromJson(peticion, POJOMensaje.class);
+		this.codPeticion = mje.getCodigo();
 		this.respuesta = "";
-		
 		switch (this.codPeticion) {
-			case CodigoPeticion.LOGEO:
-				PeticionLogeo petLog = new PeticionLogeo(datosPeticion, serverTh);
+			case Mensaje.LOGEO:
+				PeticionLogeo petLog = new PeticionLogeo(gson.fromJson(peticion, POJOLogin.class), serverTh);
 				this.respuesta = petLog.getRespuesta();
 				break;
-			case CodigoPeticion.REGISTRAR:
-				PeticionRegistrar petReg = new PeticionRegistrar(datosPeticion, serverTh);
+			case Mensaje.REGISTRAR:
+				PeticionRegistrar petReg = new PeticionRegistrar(gson.fromJson(peticion, POJORegistrar.class), serverTh);
 				this.respuesta = petReg.getRespuesta();
 				break;
 			default:

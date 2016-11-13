@@ -1,13 +1,12 @@
-package peticiones;
+package constantes;
 
-public class CodigoPeticion {
+public class Mensaje {
 	
 	// Conexion: 1000
 	public static final int CONEXION_CON_SERVIDOR = 1000;
 
 	// Usuario: 0-99
 	public static final int LOGEO = 1;
-	public static final int LOGEO_CORRECTO_ADMIN = 9;
 	public static final int LOGEO_CORRECTO_USUARIO = 0;
 	public static final int LOGEO_INCORRECTO = 13;
 	public static final int REGISTRAR = 15;
@@ -17,7 +16,6 @@ public class CodigoPeticion {
 	public static final int CREAR_PARTIDA = 110;	
 	public static final int CREAR_PARTIDA_CORRECTO = 111;
 	public static final int CREAR_PARTIDA_INCORRECTO = 112;
-	
 	public static final int UNIRSE_PARTIDA = 120;
 
 	// Partida: 200-299
