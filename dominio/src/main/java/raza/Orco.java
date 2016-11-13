@@ -1,31 +1,29 @@
 package raza;
 
-import personaje.Personaje;
+import entidades.Personaje;
+//import habilidades.Habilidad;
 
 public class Orco extends Personaje {
 
 	public Orco(String nombre) {
 		super(nombre);
 	}
-
-	@Override
-	protected boolean puedeAtacar() {
-		return energia >= calcularPuntosDeAtaque();
-	}
 	
 	@Override
-	public int obtenerPuntosDeDefensa() {
-		return 0;
+	public boolean puedeAtacar() {
+		return this.energia > (10 + this.calcularPuntosDeAtaque());
 	}
 
 	@Override
-	public int obtenerNivelDeSalud() {
-		return this.salud;
-	}
-
-	@Override
-	protected int calcularPuntosDeAtaque() {
+	public void subirEstadisticas(int nivel) {
 		// TODO Auto-generated method stub
-		return 10;
+		
 	}
+
+//	@Override
+//	public void serHechizado(Habilidad habilidad) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+	
 }

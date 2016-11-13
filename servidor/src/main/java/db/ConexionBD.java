@@ -15,6 +15,7 @@ public class ConexionBD implements Serializable {
 	 * @author Matias Jimenez
 	 * Implementa Singleton
 	 */
+	
 	private static final long serialVersionUID = -2292999609271615808L;
 	private static Connection conn = null;
 	private static ConexionBD instance;
@@ -26,7 +27,7 @@ public class ConexionBD implements Serializable {
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:"+ruta);
             System.out.println("La conexion a la base de datos ha sido exitosa.");
-        }catch(Exception e){
+        } catch(Exception e){
         	System.out.println("No se encuentra la base");
         }
     }
@@ -47,12 +48,6 @@ public class ConexionBD implements Serializable {
 		conn.close();
 	}
 	
-	/*
-	public static void main(String[] args) throws SQLException {
-		DBConnection db = DBConnection.getInstance();
-	}
-	*/
-	
 	public ResultSet query(String query) throws SQLException{
         statement = conn.createStatement();
         ResultSet res = statement.executeQuery(query);
@@ -64,12 +59,9 @@ public class ConexionBD implements Serializable {
 		ResultSet rs = null;
 		try {
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("SELECT nombre, password, permisos FROM Usuario"
-							+ " WHERE nombre LIKE '"+usuario+"' "
-							+ "AND password LIKE '"+password+"'");
+			rs = stmt.executeQuery("SELECT nombre, password, permisos FROM Usuario" + " WHERE nombre LIKE '" + usuario + "' " + "AND password LIKE '" + password + "'");
 			if(rs.next())
 				return rs.getInt(3);
-			
 		} catch(SQLException sqle) {
 			sqle.printStackTrace();
 		} finally {
@@ -84,7 +76,12 @@ public class ConexionBD implements Serializable {
 	
 	public boolean agregarUsuario (String nombre, String password, String nick, String pregS, String rtaS) throws SQLException {
 		statement = conn.createStatement();
-        statement.executeUpdate("INSERT INTO Usuario VALUES ('"+ nombre +"','"+ password +"','"+ nick +"','"+ pregS +"','"+ rtaS +"',0)");
-        return true;
+        return statement.executeUpdate("INSERT INTO Usuario VALUES ('" + nombre + "','" + password + "','" + nick + "','" + pregS + "','" + rtaS + "',0)") > 0;
 	}
+	
+	/*
+	public static void main(String[] args) throws SQLException {
+		DBConnection db = DBConnection.getInstance();
+	}
+	*/
 }

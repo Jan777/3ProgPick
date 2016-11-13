@@ -27,8 +27,6 @@ public class Server {
 		return conexionBD;
 	}
 
-	
-
 	public Server(JTextField txtPuerto, JTextArea txtLog) throws SQLException {
 		this.txtLog = txtLog;
 		PUERTO_POR_DEFECTO = Integer.parseInt(txtPuerto.getText());
@@ -42,12 +40,11 @@ public class Server {
 			ServerSocket svSocket = new ServerSocket(PUERTO_POR_DEFECTO);
 			// Escuchar a clientes de forma constante
 			while(true) {
-
-				//System.out.println("Escuchando en el puerto: " + PUERTO_POR_DEFECTO);
+				System.out.println("Escuchando en el puerto: " + PUERTO_POR_DEFECTO);
 				escribirLog("Escuchando en el puerto: " + PUERTO_POR_DEFECTO);
 				// Aceptar la conexión
 				Socket cSocket = svSocket.accept();
-				escribirLog("Se conectó: " + cSocket.getLocalAddress());
+				escribirLog("Se conectó: " + cSocket.getInetAddress());
 				UsuarioSocket aux = new UsuarioSocket(cSocket);
 				listaSocketsUsuarios.add(aux);
 

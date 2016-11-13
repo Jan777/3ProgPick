@@ -5,19 +5,19 @@ import java.net.Socket;
 
 import pojo.POJORegistrar;
 import pojo.POJOLogin;
-import hilos.Server;
 import peticiones.CodigoPeticion;
-import peticiones.Peticion;
 
 
 
 import pantallas.Cliente;
 
-public class ClienteLogica extends Thread{
+public class ClienteLogica extends Thread {
 	
-	private Socket s;
+	public static final int PUERTO_POR_DEFECTO = 5000;
+	private Socket socket;
 	private DataInputStream in;
 	private DataOutputStream out;
+	
 	private static String respuestaServer;
 	private boolean estaConectado = false;
 	private String nombreUsuario;
@@ -27,15 +27,15 @@ public class ClienteLogica extends Thread{
 	private int tipoDeCuenta;
 	private int tipoDeJugador;
 	private int fila, columna;
-	private Cliente zrCliente;
+	private Cliente cliente;
 	private boolean estaEnPartida = false;
 	
 	public int getIndiceUsuario() {
 		return indiceUsuario;
 	}
 
-	public void setZrCliente(Cliente zrCliente) {
-		this.zrCliente = zrCliente;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	public int getTipoDeJugador() {
@@ -56,9 +56,9 @@ public class ClienteLogica extends Thread{
 
 	public ClienteLogica(String host){	
 		try {
-			s = new Socket(host, Server.PUERTO_POR_DEFECTO);
-			in = new DataInputStream(s.getInputStream());
-			out = new DataOutputStream(s.getOutputStream());
+			socket = new Socket(host, ClienteLogica.PUERTO_POR_DEFECTO);
+			in = new DataInputStream(socket.getInputStream());
+			out = new DataOutputStream(socket.getOutputStream());
 			estaConectado = true;
 			indiceUsuario = -1;
 		} catch (Exception e) {
@@ -72,30 +72,29 @@ public class ClienteLogica extends Thread{
 
 	public String getNombre() {
 		return this.nombreUsuario;
-	}	
-
-	
+	}
 
 	@Override
 	public void run() {
 		try {
 			while(true) {
-				respuestaServer = in.readUTF();
-				System.out.println("SERVER: "+respuestaServer);
-				//sleep(1000);
+				if(in != null) {
+					respuestaServer = in.readUTF();
+					System.out.println("SERVER: " + respuestaServer);
+					sleep(1000);
+				}
 			}
 		} catch (Exception e) {
 			try {
 				in.close();
 				out.close();
-				s.close();
+				socket.close();
 			} catch (Exception e2) {
+				e2.printStackTrace();
 			}
 			e.printStackTrace();
 		}
 	}
-	
-
 
 	public int registrarse(String nombre, String pass, String nick, String pregSec, String respSecre) {
 		try {
@@ -108,7 +107,6 @@ public class ClienteLogica extends Thread{
 			int codigoRespuesta = Integer.parseInt(reg.getRespuesta());
 			return CodigoPeticion.REGISTRAR_CORRECTO;			
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println("Error registro");
 		}
 		return CodigoPeticion.REGISTRAR_INCORRECTO;
@@ -117,24 +115,20 @@ public class ClienteLogica extends Thread{
 	public int loguearse(String nombre, String pass) {
 		try {
 			POJOLogin login = new POJOLogin(nombre, pass);
+			
 			out.writeUTF(login.getDatosEnviable());
+			
 			sleep(1000);	
 			login.setRespuesta(respuestaServer);			
 			int codigoRespuesta = Integer.parseInt(login.getRespuesta());
 			//System.out.println(codigoRespuesta+" "+CodigoPeticion.LOGEO_CORRECTO);
 			switch (codigoRespuesta) {
-			case CodigoPeticion.LOGEO_CORRECTO_ADMIN:
-				this.nombreUsuario = nombre;
-				this.tipoDeCuenta = CodigoPeticion.LOGEO_CORRECTO_ADMIN;
-				return CodigoPeticion.LOGEO_CORRECTO_ADMIN;
-
-			case CodigoPeticion.LOGEO_CORRECTO_USUARIO:
-				this.nombreUsuario = nombre;
-				this.tipoDeCuenta = CodigoPeticion.LOGEO_CORRECTO_USUARIO;
-				return CodigoPeticion.LOGEO_CORRECTO_USUARIO;
-				
-			default:
-				break;
+				case CodigoPeticion.LOGEO_CORRECTO_USUARIO:
+					this.nombreUsuario = nombre;
+					this.tipoDeCuenta = CodigoPeticion.LOGEO_CORRECTO_USUARIO;
+					return CodigoPeticion.LOGEO_CORRECTO_USUARIO;
+				default:
+					break;
 			}
 			
 		} catch (Exception e) {
@@ -142,5 +136,4 @@ public class ClienteLogica extends Thread{
 		}
 		return CodigoPeticion.LOGEO_INCORRECTO;
 	}
-	
 }

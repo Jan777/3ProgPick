@@ -1,4 +1,4 @@
-package items;
+package itemsTipo;
 
 public abstract class ItemLanzable {
 	

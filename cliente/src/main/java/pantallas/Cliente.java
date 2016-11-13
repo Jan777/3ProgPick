@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import hilos.*;
+//import hilos.*;
 
 public class Cliente extends JFrame {
 

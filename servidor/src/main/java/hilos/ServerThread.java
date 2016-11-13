@@ -8,11 +8,12 @@ import java.sql.SQLException;
 
 import peticiones.Peticion;
 
-public class ServerThread extends Thread{
+public class ServerThread extends Thread {
+	
 	private Socket cSocket;
+	private Server server;
 	private DataInputStream in;
-	private DataOutputStream out;
-	private Server server;	
+	private DataOutputStream out;	
 	
 	public Server getServer() {
 		return server;
@@ -29,13 +30,14 @@ public class ServerThread extends Thread{
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		try {
+	
 			in = new DataInputStream(cSocket.getInputStream());
 			out = new DataOutputStream(cSocket.getOutputStream());
+			
 			while(true) {	
 				String entrada = in.readUTF();
-				System.out.println("CLIENTE: "+entrada);
+				System.out.println("CLIENTE: " + entrada);
 				Peticion peticion = new Peticion(entrada, this);
 				String pojoRespuesta = peticion.getRespuesta();
 				int tipoRespuesta = 0; 
@@ -53,7 +55,6 @@ public class ServerThread extends Thread{
 				in.close();
 				out.close();
 				cSocket.close();
-				
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}

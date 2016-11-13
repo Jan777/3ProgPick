@@ -1,17 +1,17 @@
 package items;
 
-import personaje.Personaje;
-import personaje.PersonajeEquipado;
+import casta.Casta;
+import casta.Guerrero;
+import itemsTipo.ItemAtaque;
 
-public class Espada extends PersonajeEquipado {
+public class Espada extends ItemAtaque {
 
-	public Espada(Personaje personajeDecorado) {
-		super(personajeDecorado);
+	public Espada(Casta casta) {
+		this.setCasta(casta);
+		this.setNombre("Espada");
+		this.setAtaque(10);
+		this.setPuntosDeEnergiaPorAtaque(20);
+		this.setCasta(new Guerrero());
+		this.setNivelMinimo(1);
 	}
-	
-	@Override
-	public int obtenerPuntosDeAtaque() {
-		return super.obtenerPuntosDeAtaque() + 5;
-	}
-
 }

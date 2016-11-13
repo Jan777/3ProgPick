@@ -1,17 +1,15 @@
 package items;
 
-import personaje.Personaje;
-import personaje.PersonajeEquipado;
+import casta.Guerrero;
+import itemsTipo.ItemDefensa;
 
-public class Escudo extends PersonajeEquipado {
+public class Escudo extends ItemDefensa {
 
-	public Escudo(Personaje personajeDecorado) {
-		super(personajeDecorado);
+	public Escudo() {
+		this.setNombre("Escudo");
+		this.setDefensa(defensa);
+		
+		this.setCasta(new Guerrero());
+		this.setNivelMinimo(1);
 	}
-	
-	@Override
-	public int obtenerPuntosDeDefensa() {
-		return super.obtenerPuntosDeDefensa() + 10;
-	}
-
 }

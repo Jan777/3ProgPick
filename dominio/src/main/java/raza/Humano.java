@@ -1,35 +1,27 @@
 package raza;
 
-import personaje.Personaje;
+import entidades.Personaje;
+//import habilidades.Habilidad;
 
 public class Humano extends Personaje {
-	int cantidadDeAtaques;
-	
+
 	public Humano(String nombre) {
 		super(nombre);
 	}
-
-	protected void despuesDeAtacar() {
-		cantidadDeAtaques++;
-	}
 	
 	@Override
-	protected int calcularPuntosDeAtaque() {
-		return 10 + (cantidadDeAtaques *10);
+	public boolean puedeAtacar() {
+		return this.energia > (10 + this.calcularPuntosDeAtaque());
 	}
 
 	@Override
-	protected boolean puedeAtacar() {
-		return energia >= calcularPuntosDeAtaque();
+	public void subirEstadisticas(int nivel) {
+		// TODO Auto-generated method stub
+		
 	}
 
-	@Override
-	public int obtenerPuntosDeDefensa() {
-		return 0;
-	}
-
-	@Override
-	public int obtenerNivelDeSalud() {
-		return this.salud;
-	}
+//	@Override
+//	public void serHechizado(Habilidad habilidad) {
+//		// TODO Auto-generated method stub
+//	}
 }

@@ -22,24 +22,20 @@ public class Peticion {
 		this.respuesta = "";
 		
 		switch (this.codPeticion) {
-		case CodigoPeticion.LOGEO:
-			PeticionLogeo petLog = new PeticionLogeo(datosPeticion, serverTh);
-			this.respuesta = petLog.getRespuesta();
-			break;
-		
-		case CodigoPeticion.REGISTRAR:
-			PeticionRegistrar petReg = new PeticionRegistrar(datosPeticion, serverTh);
-			this.respuesta = petReg.getRespuesta();
-			break;
-			
-		default:
-			break;
+			case CodigoPeticion.LOGEO:
+				PeticionLogeo petLog = new PeticionLogeo(datosPeticion, serverTh);
+				this.respuesta = petLog.getRespuesta();
+				break;
+			case CodigoPeticion.REGISTRAR:
+				PeticionRegistrar petReg = new PeticionRegistrar(datosPeticion, serverTh);
+				this.respuesta = petReg.getRespuesta();
+				break;
+			default:
+				break;
 		}
-		
 	}	
 
 	public String getRespuesta() {
 		return respuesta;
 	}
-	
 }

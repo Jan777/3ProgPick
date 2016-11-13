@@ -1,8 +1,8 @@
 package items;
 
-import personaje.Personaje;
+import entidades.Personaje;
 
-public abstract class Hechizo {
+public abstract class Hechizo extends Item {
 
 	public abstract void afectar(Personaje personaje);
 

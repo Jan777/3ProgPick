@@ -3,8 +3,8 @@ package alianza;
 import java.util.ArrayList;
 import java.util.List;
 
+import entidades.Personaje;
 import interfaces.Atacable;
-import personaje.Personaje;
 import raza.Humano;
 
 public class AlianzaDeHumanos extends Alianza {
@@ -13,7 +13,7 @@ public class AlianzaDeHumanos extends Alianza {
 		super(cantidad);
 		this.aliados = new ArrayList<Personaje>();
 		for (int i = 0; i < cantidad; i++) {
-			this.aliados.add(new Humano("" + i));
+			//this.aliados.add(new Humano("" + i));
 		}
 	}
 	
@@ -37,9 +37,9 @@ public class AlianzaDeHumanos extends Alianza {
 		return this.aliados.get(0);
 	}
 	
-	public boolean aliarse(Humano personaje){
-		return this.aliados.add(personaje);
-	}
+//	public boolean aliarse(Humano personaje){
+//		//return this.aliados.add(personaje);
+//	}
 	
 	public void salirDeLaAlianza(Humano personaje){
 		this.aliados.remove(personaje);

@@ -17,9 +17,9 @@ public class PeticionRegistrar {
 		boolean resultado = serverTh.getServer().getConexionBD().agregarUsuario(usuario, password, nick, pregSecreta, respSecreta);
 		
 		if(resultado)
-			respuesta = CodigoPeticion.REGISTRAR_CORRECTO+"";
+			respuesta = CodigoPeticion.REGISTRAR_CORRECTO + "";
 		else
-			respuesta = CodigoPeticion.REGISTRAR_INCORRECTO+"";
+			respuesta = CodigoPeticion.REGISTRAR_INCORRECTO + "";
 	}
 	
 	public String getRespuesta() {

@@ -1,8 +1,9 @@
 package alianza;
 
 import java.util.List;
+
+import entidades.Personaje;
 import interfaces.Atacable;
-import personaje.Personaje;
 
 public abstract class Alianza {
 
