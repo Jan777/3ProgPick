@@ -1,4 +1,4 @@
-﻿# [WarDraft]
+﻿# WarDraft
 
 ## Sobre las personas
 
@@ -9,8 +9,6 @@
 
 ### Integrantes del equipo
 
-* Adrian Morel ([adrianmorel] (https://github.com/adrianmorel))
-* Federico Robasso ([frobasso] (https://github.com/frobasso))
 * Jonathan De Donato ([JonaDeDonato] (https://github.com/JonaDeDonato))
 * Pablo Rapetti ([pablorapetti] (https://github.com/pablorapetti))
 * Matias Angel Jimenez Vitale ([matiascirojimenez] (https://github.com/matiascirojimenez))
